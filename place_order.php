@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (isset($menu_item[$product_name])) {
             // Calculate total cost for each product
-            $total_cost += $candy[$product_name]['price'] * $quantity;
+            $total_cost += $menu_item[$product_name]['price'] * $quantity;
         }
     }
 
