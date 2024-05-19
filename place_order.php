@@ -1,28 +1,33 @@
 <?php
-require_once('menu.php');
+include('menu.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Initialize total cost and change
-    $total_cost = 0;
-    $change = 0;
+$product_name = $_POST['product'];
+$quantity = $_POST['quantity'];
+$cash = $_POST['cash'];
 
-    foreach ($_POST as $product_name => $quantity) {
-        $quantity = intval($quantity);
-        if ($quantity < 0) {
-            continue;
-        }
+if (array_key_exists($product_name, $menu_item)) {
+    $product_price = $menu_item[$product_name]['price'];
+    $product_description = $menu_item[$product_name]['description'];
+    $subtotal = $product_price * $quantity;
+    echo "<h1>Order Summary</h1>";
+    echo "<p>Product: $product_name</p>";
+    echo "<p>Description: $product_description</p>";
+    echo "<p>Quantity: $quantity</p>";
+    echo "<p>Subtotal: $" . number_format($subtotal, 2) . "</p>";
 
-        if (isset($menu_item[$product_name])) {
-            // Calculate total cost for each product
-            $total_cost += $menu_item[$product_name]['price'] * $quantity;
-        }
+    $total_price = $subtotal; 
+
+
+    if ($cash >= $total_price) {
+        $change = $cash - $total_price;
+        echo "<p>Cash provided: $" . number_format($cash, 2) . "</p>";
+        echo "<p>Total Price: $" . number_format($total_price, 2) . "</p>";
+        echo "<p>Change: $" . number_format($change, 2) . "</p>";
+
+    } else {
+        echo "<p>Insufficient cash provided. Please provide enough cash to cover the total price.</p>";
     }
-
-    $cash_payment = floatval($_POST['cash']);
-
-    $change = $cash_payment - $total_cost;
-    
-    header('Location: index.php');
-    exit();
+} else {
+    echo "<p>Invalid product selection.</p>";
 }
 ?>
