@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Management System</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body { 
+			font-family: Comic Sans MS;
+			background-color: rgb(176,101,0);
+			line-height: 1.7;}
+		h1 {
+			color: rgb(135,206,250);}
+		h2 { 
+			color: rgb(139,0,0);}
+    </style>
 </head>
 <body>
-    <h1>The Candy Store</h1>
+    <h1>Bella's Burger Store</h1>
     <h2>Place Order</h2>
     <form action="place_order.php" method="post">
-        <?php foreach ($candy as $product_name => $data) { ?>
+        <?php foreach ($menu_item as $product_name => $data) { ?>
             <label for="<?= $product_name ?>"><?= $product_name ?></label>
             <select id="<?= $product_name ?>" name="<?= $product_name ?>">
                 <?php for ($i = 0; $i <= $data['stock']; $i++) { ?>
