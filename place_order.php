@@ -1,6 +1,6 @@
 <?php
 // Include the candy data and any other necessary files
-require_once('candy_data.php');
+require_once('menu.php');
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Check if the product exists in the candy array
-        if (isset($candy[$product_name])) {
+        if (isset($menu_item[$product_name])) {
             // Calculate total cost for each product
             $total_cost += $candy[$product_name]['price'] * $quantity;
         }
